@@ -2,7 +2,6 @@ import sys
 
 
 class Seat:
-    __slots__ = ('row', 'col')
 
     def __init__(self, row, col):
         self.row = row
@@ -34,4 +33,9 @@ if __name__ == '__main__':
     for line in sys.stdin:
         scanned_passes.append(Seat.from_string(line.rstrip('\n')))
 
-    print(max(seat.seat_id for seat in scanned_passes))
+    filled_seats = sorted(seat.seat_id for seat in scanned_passes)
+
+    print('max ', filled_seats[-1])
+    for seat_one, seat_two in zip(filled_seats[:-1], filled_seats[1:]):
+        if seat_one + 1 != seat_two:
+            print('free', seat_one, seat_two)
